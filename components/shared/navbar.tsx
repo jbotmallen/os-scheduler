@@ -17,19 +17,19 @@ const Navbar = () => {
             </Button>
             <ul className='w-full flex items-center justify-center p-3'>
                 <li className='flex-[0.5] hover:flex-1 transition-all duration-300 group'>
-                    <Link href='/' className={`text-black group-hover:font-semibold flex items-center justify-center gap-x-1.5 ${pathname === '/' && "underline"}`}>
+                    <Link href='/' className={`text-black group-hover:font-semibold flex items-center justify-center gap-x-1.5 ${pathname === '/' && "underline font-medium"}`}>
                         <UsersIcon className='w-4 h-4 flex-shrink-0' />
                         FCFS
                     </Link>
                 </li>
                 <li className='flex-[0.5] hover:flex-1 transition-all duration-300 p-2 group'>
-                    <Link href='/priority' className={`text-black group-hover:font-semibold flex items-center justify-center gap-x-1.5 ${pathname === '/priority' && "underline"}`}>
+                    <Link href='/priority' className={`text-black group-hover:font-semibold flex items-center justify-center gap-x-1.5 ${pathname === '/priority' && "underline font-medium"}`}>
                         <ArrowDown10Icon className='w-4 h-4 flex-shrink-0' />
                         Priority
                     </Link>
                 </li>
                 <li className='flex-[0.5] hover:flex-1 transition-all duration-300 p-2 group'>
-                    <Link href='/sjf' className={`text-black group-hover:font-semibold flex items-center justify-center gap-x-1.5 ${pathname === '/sjf' && "underline"}`}>
+                    <Link href='/sjf' className={`text-black group-hover:font-semibold flex items-center justify-center gap-x-1.5 ${pathname === '/sjf' && "underline font-medium"}`}>
                         <ClockArrowUpIcon className='w-4 h-4 flex-shrink-0' />
                         SJF
                     </Link>

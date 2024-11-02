@@ -51,13 +51,13 @@ export default function SJF() {
 
     return (
         <div className="mt-20">
-            <h1 className="text-2xl md:text-4xl font-bold mb-4 text-center">Priority Scheduling</h1>
+            <h1 className="text-2xl md:text-4xl font-bold mb-4 text-center">Shortest Job First Scheduling</h1>
             <ProcessTable algorithm="SJF" />
             <div className="flex flex-col items-start">
                 <div className="w-full flex items-center justify-between">
                     <Button className="text-md font-semibold h-12" variant="default" onClick={calculateShortestJobFirst}>
                         <CalculatorIcon className="w-6 h-6 flex-shrink-0" />
-                        Calculate Priority
+                        Calculate SJF
                     </Button>
                     <Button className="text-md font-semibold h-12 bg-green-700 hover:bg-green-700/80" variant="default" onClick={addToProcesses}>
                         <PlusCircleIcon className="w-6 h-6 flex-shrink-0" />
