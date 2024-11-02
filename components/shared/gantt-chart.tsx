@@ -29,7 +29,7 @@ const GanttChart: React.FC<GanttChartProps> = ({ schedule }) => {
                                 className="border-black border-2 border-dashed mt-10"
                                 style={{
                                     width: `${getPercentage(process.start - adjustedSchedule[index - 1].end, totalDuration)}%`,
-                                    backgroundColor: 'transparent', // Set transparent for the gap
+                                    backgroundColor: 'transparent',
                                 }}
                             />
                         )}
