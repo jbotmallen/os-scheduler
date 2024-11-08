@@ -117,11 +117,16 @@ You can install the OS Scheduler either by cloning the repository or by download
     cd os-scheduler
     ```
 4. Install the required dependencies:
-    ```sh
-    pip install -r requirements.txt
+    ```
+        npm install
+        # or
+        yarn install
+        # or
+        pnpm install
     ```
 
 ### Using Zip File
+
     1. Download the zip file from the repository.
     2. Extract the zip file.
     3. Navigate to the extracted directory.
@@ -133,8 +138,11 @@ You can install the OS Scheduler either by cloning the repository or by download
         # or
         pnpm install
     ```
+    
 ## Usage
+
     To start the development server, run:
+
     ```
         npm run dev
         # or
