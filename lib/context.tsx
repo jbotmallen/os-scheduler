@@ -30,7 +30,7 @@ export const ProcessProvider = ({ children }: { children: ReactNode }) => {
 
     const addToProcesses = () => {
         const process: Process = {
-            id: String.fromCharCode(65 + processes.length),
+            id: String.fromCharCode(processes[processes.length - 1]?.id.charCodeAt(0) + 1 || 65),
             arrivalTime: processes.length > 0 ? (processes[processes.length - 1].arrivalTime + 1) : 0,
             cpuBurst: 1,
             priority: 1,

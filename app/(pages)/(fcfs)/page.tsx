@@ -8,7 +8,7 @@ import { useProcessContext } from "@/lib/context";
 import { toast } from "sonner";
 import { CalculatorIcon, PlusCircleIcon } from "lucide-react";
 import ProcessTable from "@/components/shared/process-table";
-import Calculations from "@/components/shared/calculations";
+import Calculations from "@/components/shared/np-calculations";
 
 export default function FCFS() {
   const { processes, addToProcesses } = useProcessContext();
@@ -36,7 +36,7 @@ export default function FCFS() {
   };
 
   return (
-    <div className="mt-20">
+    <div className="mt-10">
       <h1 className="text-2xl md:text-4xl font-bold mb-4 text-center">First Come First Served Scheduling</h1>
       <ProcessTable />
       <div className="flex flex-col items-start">

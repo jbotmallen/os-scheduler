@@ -1,4 +1,4 @@
-import React from "react";
+import { Fragment } from "react";
 import { ScheduledProcess } from "@/lib/types";
 import { getPercentage, getRandomDarkColor } from "@/lib/utils";
 
@@ -22,8 +22,20 @@ const GanttChart: React.FC<GanttChartProps> = ({ schedule }) => {
         <div className="mt-8 w-full mx-auto">
             <h2 className="text-xl font-semibold -mb-5">Gantt Chart</h2>
             <div className="relative flex items-center gap-0">
+                {adjustedSchedule[0].start > 0 && (
+                    <div
+                        className="border-black border-2 border-dashed mt-10 text-gray-500 flex items-center justify-center font-bold p-3 rounded-md shadow-md shadow-gray-400"
+                        style={{
+                            width: `${getPercentage(adjustedSchedule[0].start, totalDuration)}%`,
+                            backgroundColor: 'lightgray',
+                        }}
+                    >
+                        Idle
+                        <span className="absolute text-sm -left-1.5 -bottom-6 text-black">00</span>
+                    </div>
+                )}
                 {adjustedSchedule.map((process, index) => (
-                    <React.Fragment key={process.id}>
+                    <Fragment key={index}>
                         {index > 0 && (
                             <div
                                 className="border-black border-2 border-dashed mt-10"
@@ -44,7 +56,7 @@ const GanttChart: React.FC<GanttChartProps> = ({ schedule }) => {
                             <span className="absolute text-sm -left-1.5 -bottom-6 text-black">
                                 {process.start.toString().padStart(2, "0")}
                             </span>
-                            {index > 0 && index + 1 < schedule.length && adjustedSchedule[index+1].arrivalTime - process.end > 1 && (
+                            {index > 0 && index + 1 < schedule.length && adjustedSchedule[index + 1].arrivalTime - process.end > 1 && (
                                 <span className="absolute text-sm -right-1 -bottom-6 text-black">
                                     {process.end.toString().padStart(2, "0")}
                                 </span>
@@ -53,7 +65,7 @@ const GanttChart: React.FC<GanttChartProps> = ({ schedule }) => {
                                 <span className="absolute text-sm -right-1 -bottom-6 text-black">{process.end.toString().padStart(2, "0")}</span>
                             )}
                         </div>
-                    </React.Fragment>
+                    </Fragment>
                 ))}
             </div>
         </div>
