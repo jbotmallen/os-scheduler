@@ -126,7 +126,7 @@ You can install the OS Scheduler either by cloning the repository or by download
     ```
 
 ### Using Zip File
-``
+
     1. Download the zip file from the repository.
     2. Extract the zip file.
     3. Navigate to the extracted directory.
@@ -140,7 +140,7 @@ You can install the OS Scheduler either by cloning the repository or by download
     ```
     
 ## Usage
-``
+
     To start the development server, run:
 
     ```
@@ -152,5 +152,5 @@ You can install the OS Scheduler either by cloning the repository or by download
         # or
         bun dev
     ```
-``
+
     Open http://localhost:3000 with your browser to see the result.
