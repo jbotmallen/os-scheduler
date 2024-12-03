@@ -3,16 +3,16 @@
 import { useState } from "react";
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
-import GanttChart from "@/components/shared/gantt-chart";
+import GanttChart from "@/components/shared/os/gantt-chart";
 import { Button } from "@/components/ui/button";
 import { ScheduledProcess } from "@/lib/types";
-import { useProcessContext } from "@/lib/context";
+import { useProcessContext } from "@/context/process";
 import { toast } from "sonner";
 import { CalculatorIcon, PlusCircleIcon } from "lucide-react";
-import ProcessTable from "@/components/shared/process-table";
-import NonPreem from "@/components/shared/np-calculations";
-import PreemptiveGanttChart from "@/components/shared/pre-gantt-chart";
-import PreemptiveCalculations from "@/components/shared/p-calculations";
+import ProcessTable from "@/components/shared/os/process-table";
+import NonPreem from "@/components/shared/os/np-calculations";
+import PreemptiveGanttChart from "@/components/shared/os/pre-gantt-chart";
+import PreemptiveCalculations from "@/components/shared/os/p-calculations";
 
 export default function Priority() {
     const { processes, addToProcesses } = useProcessContext();

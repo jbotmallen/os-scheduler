@@ -1,18 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import GanttChart from "@/components/shared/gantt-chart";
+import GanttChart from "@/components/shared/os/gantt-chart";
 import { Button } from "@/components/ui/button";
 import { ScheduledProcess } from "@/lib/types";
-import { useProcessContext } from "@/lib/context";
+import { useProcessContext } from "@/context/process";
 import { toast } from "sonner";
 import { CalculatorIcon, PlusCircleIcon } from "lucide-react";
-import ProcessTable from "@/components/shared/process-table";
-import NonPreemptiveCalculations from "@/components/shared/np-calculations";
+import ProcessTable from "@/components/shared/os/process-table";
+import NonPreemptiveCalculations from "@/components/shared/os/np-calculations";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import PreemptiveGanttChart from "@/components/shared/pre-gantt-chart";
-import PreemptiveCalculations from "@/components/shared/p-calculations";
+import PreemptiveGanttChart from "@/components/shared/os/pre-gantt-chart";
+import PreemptiveCalculations from "@/components/shared/os/p-calculations";
 
 export default function SJF() {
     const [isPreemptive, setIsPreemptive] = useState<boolean>(false);

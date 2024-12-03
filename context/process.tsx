@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, ReactNode, useContext, useState, useEffect } from "react";
-import { Process } from "./types";
+import { Process } from "../lib/types";
 import { toast } from "sonner";
 
 interface ProcessContextType {
@@ -10,22 +10,26 @@ interface ProcessContextType {
     addToProcesses: () => void;
     removeFromProcesses: (id: string) => void;
     updateProcess: (id: string, updatedProcess: Process) => void;
+    loading: boolean;
 }
 
 const ProcessContext = createContext<ProcessContextType | undefined>(undefined);
 
 export const ProcessProvider = ({ children }: { children: ReactNode }) => {
     const [processes, setProcesses] = useState<Process[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const storedProcesses = localStorage.getItem("processes");
         if (storedProcesses) {
             setProcesses(JSON.parse(storedProcesses));
         }
+        setLoading(false);
     }, []);
 
     useEffect(() => {
         localStorage.setItem("processes", JSON.stringify(processes));
+        setLoading(false);
     }, [processes]);
 
     const addToProcesses = () => {
@@ -43,7 +47,7 @@ export const ProcessProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const updateProcess = (id: string, updatedProcess: Process) => {
-        if(updatedProcess.arrivalTime < 0 || updatedProcess.cpuBurst < 1) {
+        if (updatedProcess.arrivalTime < 0 || updatedProcess.cpuBurst < 1) {
             toast.error("Arrival Time and CPU Burst must be greater than 0");
             return;
         }
@@ -53,7 +57,7 @@ export const ProcessProvider = ({ children }: { children: ReactNode }) => {
     };
 
     return (
-        <ProcessContext.Provider value={{ processes, setProcesses, addToProcesses, removeFromProcesses, updateProcess }}>
+        <ProcessContext.Provider value={{ processes, setProcesses, addToProcesses, removeFromProcesses, updateProcess, loading }}>
             {children}
         </ProcessContext.Provider>
     );

@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import GanttChart from "@/components/shared/gantt-chart";
+import GanttChart from "@/components/shared/os/gantt-chart";
 import { Button } from "@/components/ui/button";
 import { ScheduledProcess } from "@/lib/types";
-import { useProcessContext } from "@/lib/context";
+import { useProcessContext } from "@/context/process";
 import { toast } from "sonner";
 import { CalculatorIcon, PlusCircleIcon } from "lucide-react";
-import ProcessTable from "@/components/shared/process-table";
-import Calculations from "@/components/shared/np-calculations";
+import ProcessTable from "@/components/shared/os/process-table";
+import Calculations from "@/components/shared/os/np-calculations";
 
 export default function FCFS() {
   const { processes, addToProcesses } = useProcessContext();
@@ -53,7 +53,7 @@ export default function FCFS() {
         {schedule.length > 0 ? (
           <>
             <GanttChart schedule={schedule} />
-            <Calculations processes={schedule} algorithm="FCFS"/>
+            <Calculations processes={schedule} algorithm="FCFS" />
           </>
         ) : (
           <div className="mt-8 text-lg font-semibold text-center">

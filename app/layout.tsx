@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { ProcessProvider } from "@/lib/context";
+import { ProcessProvider } from "@/context/process";
 import { Toaster } from "@/components/ui/sonner";
 import NextTopLoader from 'nextjs-toploader'
+import { SelectedProvider } from "@/context/selected";
+import Navbar from "@/components/shared/navigation/navbar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -29,23 +31,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
       >
-        <ProcessProvider>
-          <Toaster />
-          <NextTopLoader
-            color="#2299DD"
-            initialPosition={0.08}
-            crawlSpeed={200}
-            height={3}
-            crawl={true}
-            showSpinner={false}
-            easing="ease"
-            speed={200}
-            shadow="0 0 10px #2299DD,0 0 5px #2299DD"
-          />
-          {children}
-        </ProcessProvider>
+        <Toaster duration={2000} position="bottom-left" />
+        <NextTopLoader
+          color="#2299DD"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={false}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+        />
+        <SelectedProvider>
+          <Navbar />
+        </SelectedProvider>
+        {children}
       </body>
     </html>
   );

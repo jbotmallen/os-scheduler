@@ -1,14 +1,14 @@
 "use client"
 
-import ProcessTable from '@/components/shared/process-table';
+import ProcessTable from '@/components/shared/os/process-table';
 import { Button } from '@/components/ui/button';
-import { useProcessContext } from '@/lib/context';
+import { useProcessContext } from '@/context/process';
 import { Process, ScheduledProcess } from '@/lib/types';
 import { CalculatorIcon, PlusCircleIcon } from 'lucide-react';
 import React, { useState } from 'react'
 import { toast } from 'sonner';
-import PreemptiveCalculations from '@/components/shared/p-calculations';
-import PreemptiveGanttChart from '@/components/shared/pre-gantt-chart';
+import PreemptiveCalculations from '@/components/shared/os/p-calculations';
+import PreemptiveGanttChart from '@/components/shared/os/pre-gantt-chart';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 
