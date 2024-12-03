@@ -11,7 +11,7 @@ const IOLayout = ({ children }: PropsWithChildren) => {
         loading ? (
             <Loading />
         ) : (
-            <div className='relative'>
+            <div className='relative p-3 md:p-5'>
                 {children}
             </div>
         )

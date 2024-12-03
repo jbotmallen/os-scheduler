@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative  dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2]`}
       >
         <Toaster duration={2000} position="bottom-left" />
         <NextTopLoader

@@ -10,7 +10,7 @@ const OSLayout = ({ children }: PropsWithChildren) => {
         loading ? (
             <Loading />
         ) : (
-            <div className='relative w-full h-full'>
+            <div className='relative w-full h-full p-3 md:p-5'>
                 {children}
             </div>
         )

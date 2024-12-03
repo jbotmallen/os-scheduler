@@ -16,6 +16,15 @@ const config: Config = {
 	],
 	theme: {
 		extend: {
+			keyframes: {
+				wiggleLeft: {
+					'0%, 100%': { transform: 'translateX(0)' },
+					'50%': { transform: 'translateX(-10px)' },
+				},
+			},
+			animation: {
+				'wiggle-left': 'wiggleLeft 1s ease-in-out infinite',
+			},
 			colors: {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
