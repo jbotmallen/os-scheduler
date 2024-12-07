@@ -46,20 +46,25 @@ export const OSAlgorithms: LinkGroups[] = [
 
 export const PageReplacementAlgorithms: LinkGroups[] = [
     {
-        name: 'FCFS',
+        name: 'FIFO',
         icon: UsersIcon,
-        link: '/pr-fcfs',
+        link: '/pr/fifo',
     },
     {
         name: 'LRU',
         icon: AlarmClockIcon,
-        link: '/pr-lru',
+        link: '/pr/lru',
     },
     {
         name: 'Optimal',
         icon: CableIcon,
-        link: '/pr-optimal',
+        link: '/pr/optimal',
     },
+    {
+        name: 'LFU',
+        icon: CableIcon,
+        link: '/pr/lfu',
+    }
 ]
 
 export const IOAlgorithms: LinkGroups[] = [
