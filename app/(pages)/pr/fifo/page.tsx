@@ -1,5 +1,6 @@
 "use client";
 
+import { normalizeString, processFrames } from "@/components/shared/pr/utils";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Loading from "@/components/ui/loading";
@@ -17,6 +18,7 @@ const FIFO: React.FC = () => {
     faults: number;
     sequence: { frameState: (string | null)[]; isFault: boolean }[];
   } | null>(null);
+
   const handleCalculate = () => {
     setLoading(true);
     if (frameSize <= 0) {
@@ -24,34 +26,16 @@ const FIFO: React.FC = () => {
       setLoading(false);
       return;
     }
-    const normalizedString = referenceString.trim().replace(/\s+/g, " ");
+    const normalizedString = normalizeString(referenceString);
     setReferenceString(normalizedString);
     const refs = normalizedString.split(" ").filter(Boolean);
-    const frames: (string | null)[] = Array.from(
-      { length: frameSize },
-      () => null
-    );
-    let hits = 0;
-    let faults = 0;
-    const sequence: { frameState: (string | null)[]; isFault: boolean }[] = [];
-    let pointer = 0;
 
-    refs.forEach((page) => {
-      const isHit = frames.includes(page);
-      if (isHit) {
-        hits++;
-      } else {
-        faults++;
-        frames[pointer] = page;
-        pointer = (pointer + 1) % frameSize;
-      }
-      sequence.push({ frameState: [...frames], isFault: !isHit });
-    });
-
-    setResult({ hits, faults, sequence });
+    const fifoResult = processFrames(refs, frameSize, "FIFO");
+    setResult(fifoResult);
     setInitialReferenceString(referenceString);
     setLoading(false);
   };
+
   useEffect(() => {
     handleCalculate();
   }, [frameSize]);
@@ -59,7 +43,7 @@ const FIFO: React.FC = () => {
   return (
     <div className="my-10">
       <h1 className="text-2xl md:text-4xl font-bold my-8">
-        First In First Out
+        Least Recently Used
       </h1>
       <section className="flex flex-col gap-2 mb-4">
         <div className="flex gap-4">
@@ -151,6 +135,7 @@ const FIFO: React.FC = () => {
                     ))}
                   </TableBody>
                 </Table>
+
                 <Table>
                   <TableBody>
                     <TableRow>
@@ -163,7 +148,7 @@ const FIFO: React.FC = () => {
                               : "bg-green-300 text-black"
                           }`}
                         >
-                          {step.isFault ? "Fault" : "Hit"}
+                          {step.isFault ? "F" : "H"}
                         </TableCell>
                       ))}
                     </TableRow>

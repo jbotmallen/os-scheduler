@@ -59,11 +59,6 @@ export const PageReplacementAlgorithms: LinkGroups[] = [
         name: 'Optimal',
         icon: CableIcon,
         link: '/pr/optimal',
-    },
-    {
-        name: 'LFU',
-        icon: CableIcon,
-        link: '/pr/lfu',
     }
 ]
 

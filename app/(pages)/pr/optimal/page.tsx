@@ -152,7 +152,7 @@ const Optimal: React.FC = () => {
                               : "bg-green-300 text-black"
                           }`}
                         >
-                          {step.isFault ? "Fault" : "Hit"}
+                          {step.isFault ? "F" : "H"}
                         </TableCell>
                       ))}
                     </TableRow>
