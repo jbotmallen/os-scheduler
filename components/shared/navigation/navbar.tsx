@@ -69,7 +69,7 @@ const Navbar = () => {
                         </div>
                     )}
                 </SheetHeader>
-                <SheetFooter className='flex-col md:flex-col items-start gap-2'>
+                <SheetFooter className='flex-col sm:flex-col items-start gap-2'>
                     <h1 className='font-semibold'>Select an algorithm category</h1>
                     <AlgorithmSelect selected={selected} setSelected={setSelected} loading={loading} />
                 </SheetFooter>

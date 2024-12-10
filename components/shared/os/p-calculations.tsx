@@ -35,6 +35,7 @@ const PreemptiveCalculations: React.FC<PreemptiveCalculationsProps> = ({ process
 
     const averageWaitingTime = waitingTimes.reduce((sum, time) => sum + time, 0) / processes.length;
     const averageTurnaroundTime = turnaroundTimes.reduce((sum, time) => sum + time, 0) / processes.length;
+    const uniqueProcesses = [...new Set(processes.map(p => p.id))];
 
     return (
         <div className="mt-8 w-full mx-auto mb-20">
@@ -64,12 +65,12 @@ const PreemptiveCalculations: React.FC<PreemptiveCalculationsProps> = ({ process
             <div className="mt-4 text-lg">
                 <strong>The average waiting time is</strong>{" "}
                 <span className="font-mono">
-                    ({waitingTimes.join(" + ")}) / {processes.length} = {averageWaitingTime.toFixed(1)} ms
+                    ({waitingTimes.join(" + ")}) / {uniqueProcesses.length} = {averageWaitingTime.toFixed(1)} ms
                 </span>
                 <br />
                 <strong>The average turnaround time is</strong>{" "}
                 <span className="font-mono">
-                    ({turnaroundTimes.join(" + ")}) / {processes.length} = {averageTurnaroundTime.toFixed(1)} ms
+                    ({turnaroundTimes.join(" + ")}) / {uniqueProcesses.length} = {averageTurnaroundTime.toFixed(1)} ms
                 </span>
             </div>
         </div>
