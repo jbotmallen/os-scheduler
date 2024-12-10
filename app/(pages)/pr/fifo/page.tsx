@@ -43,7 +43,7 @@ const FIFO: React.FC = () => {
   return (
     <div className="my-10">
       <h1 className="text-2xl md:text-4xl font-bold my-8">
-        Least Recently Used
+        First in, First Out Algorithm
       </h1>
       <section className="flex flex-col gap-2 mb-4">
         <div className="flex gap-4">

@@ -8,26 +8,28 @@ export const processFrames = (
   algorithm: "LRU" | "Optimal" | "FIFO" | "LFU"
 ) => {
   const frames: (string | null)[] = Array.from({ length: frameSize }, () => null);
-  const recentUsage: string[] = []; // Used for LRU
-  const frequencyMap: Record<string, number> = {}; // Used for LFU
-  let pointer = 0; // Used for FIFO
+  const recentUsage: string[] = [];
+  const frequencyMap: Record<string, number> = {};
+  let pointer = 0;
   let hits = 0;
   let faults = 0;
 
   const sequence: {
     frameState: (string | null)[];
-    recentUsage: string[]; // For LRU and debugging
-    frequencyMap?: Record<string, number>; // For LFU and debugging
+    recentUsage: string[];
+    frequencyMap?: Record<string, number>;
     isFault: boolean;
   }[] = [];
 
   refs.forEach((page, currentIdx) => {
-    let isFault = true; // Default to fault
-
+    let isFault = true;
     if (algorithm === "LRU") {
-      if (frames.includes(page)) {
-        isFault = false; // It's a hit
+      const isHit = frames.includes(page);
+      
+      if (isHit) {
+        isFault = false;
         hits++;
+
         const index = recentUsage.indexOf(page);
         if (index > -1) {
           recentUsage.splice(index, 1);
@@ -35,6 +37,7 @@ export const processFrames = (
         recentUsage.push(page);
       } else {
         faults++;
+
         if (frames.includes(null)) {
           frames[frames.indexOf(null)] = page;
         } else {
@@ -42,12 +45,13 @@ export const processFrames = (
           const indexToReplace = frames.indexOf(leastRecentlyUsed!);
           frames[indexToReplace] = page;
         }
+
         recentUsage.push(page);
       }
     } else if (algorithm === "Optimal") {
       const isHit = frames.includes(page);
       if (isHit) {
-        isFault = false; // It's a hit
+        isFault = false;
         hits++;
       } else {
         faults++;
