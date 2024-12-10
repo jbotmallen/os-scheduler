@@ -7,6 +7,8 @@ import { useIO } from "@/context/io";
 import React, { useState } from "react";
 import PathVisualizer from "@/components/shared/io/path-visualizer";
 import SeekCalculation from "@/components/shared/io/seek-calculations";
+import { Button } from "@/components/ui/button";
+import { BirdIcon, CalculatorIcon, ScanFaceIcon, TableIcon } from "lucide-react";
 
 const CScan = () => {
     const { operations, setOperations, headPosition, setHeadPosition } = useIO();
@@ -38,7 +40,7 @@ const CScan = () => {
         for (let i = 1; i < fullPath.length; i++) {
             const diff = Math.abs(fullPath[i] - fullPath[i - 1]);
             movement += diff;
-            
+
             steps.push(`(${Math.max(fullPath[i - 1], fullPath[i])} - ${Math.min(fullPath[i - 1], fullPath[i])})`);
         }
 
@@ -47,24 +49,29 @@ const CScan = () => {
     };
 
     return (
-        <div className="mt-10">
-            <Header title="C-Scan" subHeader="I/O Management" />
-            <section className="space-y-5">
+        <div className="mt-10 px-5">
+            <Header title="C Scan Algorithm" icon={ScanFaceIcon}/>
+            <section className="space-y-6">
                 <div className="flex items-center gap-x-1.5">
-                    <h1 className="font-medium text-xl">Enter the sequence of operations:</h1>
-                    <p className="text-muted-foreground">(separated by spaces)</p>
+                    <h1 className="font-medium text-xl mt-5">Enter the sequence of operations</h1>
                 </div>
                 <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
                     <div className="w-full flex flex-col gap-2 items-start justify-center">
-                        <Label className="text-lg font-semibold">Operations</Label>
+                        <div className='flex items-center gap-2'>
+                            <Label className="text-lg font-semibold flex items-center gap-x-1.5">
+                                <TableIcon className="w-6 h-6 flex-shrink-0" />
+                                Operations
+                            </Label>
+                            <p className="text-muted-foreground">(separated by spaces)</p>
+                        </div>
                         <Input
                             placeholder="176 79 34 60 92 11 41 114"
-                            className="w-full max-w-xl"
-                            value={operations.join(" ")}
+                            className="w-full max-w-xl bg-white"
+                            value={operations.join(' ')}
                             onChange={(e) =>
                                 setOperations(
                                     e.target.value
-                                        .split(" ")
+                                        .split(' ')
                                         .filter((val) => !isNaN(Number(val)))
                                         .map(Number)
                                 )
@@ -72,22 +79,29 @@ const CScan = () => {
                         />
                     </div>
                     <div className="w-fit flex flex-col gap-2 items-start">
-                        <Label className="text-lg font-semibold w-fit text-nowrap">Head position</Label>
+                        <Label className="text-lg font-semibold w-fit text-nowrap flex items-center gap-x-1.5">
+                            <BirdIcon className="w-6 h-6 flex-shrink-0" />
+                            Head position
+                        </Label>
                         <Input
                             type="number"
                             placeholder="50"
-                            className="w-36"
+                            className="w-36 bg-white"
                             value={headPosition.toString()}
                             onChange={(e) => setHeadPosition(Number(e.target.value))}
                         />
                     </div>
                 </div>
-                <button
-                    className="mt-5 px-4 py-2 bg-blue-600 text-white rounded-lg"
+                <Button
+                    type='button'
+                    className="mt-5 text-xl py-7"
+                    variant='default'
+                    size='lg'
                     onClick={calculateSeekCount}
                 >
+                    <CalculatorIcon className="w-7 h-7 flex-shrink-0" />
                     Calculate
-                </button>
+                </Button>
                 {path.length > 1 && (
                     <div className="mt-5">
                         <h2 className="font-medium text-lg">Head Movement Path:</h2>

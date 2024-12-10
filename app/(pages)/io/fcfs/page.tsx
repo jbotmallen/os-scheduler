@@ -8,6 +8,8 @@ import React, { useState } from 'react';
 import PathVisualizer from '@/components/shared/io/path-visualizer';
 import SeekCalculation from '@/components/shared/io/seek-calculations';
 import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { BirdIcon, CalculatorIcon, TableIcon, UsersIcon } from 'lucide-react';
 
 const IOFCFS = () => {
     const { operations, setOperations, headPosition, setHeadPosition } = useIO();
@@ -36,19 +38,24 @@ const IOFCFS = () => {
     };
 
     return (
-        <div className="mt-10">
-            <Header title="First Come First Serve" subHeader="I/O Management" />
-            <section className="space-y-5">
+        <div className="mt-10 px-5">
+            <Header title="First Come First Serve" subHeader="I/O Management" icon={UsersIcon}/>
+            <section className="space-y-6">
                 <div className="flex items-center gap-x-1.5">
-                    <h1 className="font-medium text-xl">Enter the sequence of operations:</h1>
-                    <p className="text-muted-foreground">(separated by spaces)</p>
+                    <h1 className="font-medium text-xl mt-5">Enter the sequence of operations</h1>
                 </div>
                 <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
                     <div className="w-full flex flex-col gap-2 items-start justify-center">
-                        <Label className="text-lg font-semibold">Operations</Label>
+                        <div className='flex items-center gap-2'>
+                            <Label className="text-lg font-semibold flex items-center gap-x-1.5">
+                                <TableIcon className="w-6 h-6 flex-shrink-0" />
+                                Operations
+                            </Label>
+                            <p className="text-muted-foreground">(separated by spaces)</p>
+                        </div>
                         <Input
                             placeholder="176 79 34 60 92 11 41 114"
-                            className="w-full max-w-xl"
+                            className="w-full max-w-xl bg-white"
                             value={operations.join(' ')}
                             onChange={(e) =>
                                 setOperations(
@@ -61,23 +68,29 @@ const IOFCFS = () => {
                         />
                     </div>
                     <div className="w-fit flex flex-col gap-2 items-start">
-                        <Label className="text-lg font-semibold w-fit text-nowrap">Head position</Label>
+                        <Label className="text-lg font-semibold w-fit text-nowrap flex items-center gap-x-1.5">
+                            <BirdIcon className="w-6 h-6 flex-shrink-0" />
+                            Head position
+                        </Label>
                         <Input
                             type="number"
                             placeholder="50"
-                            className="w-36"
+                            className="w-36 bg-white"
                             value={headPosition.toString()}
                             onChange={(e) => setHeadPosition(Number(e.target.value))}
                         />
                     </div>
                 </div>
-                <button
+                <Button
                     type='button'
-                    className="mt-5 px-4 py-2 bg-blue-600 text-white rounded-lg"
+                    className="mt-5 text-xl py-7"
+                    variant='default'
+                    size='lg'
                     onClick={calculateSeekCount}
                 >
+                    <CalculatorIcon className="w-7 h-7 flex-shrink-0" />
                     Calculate
-                </button>
+                </Button>
                 {path.length > 1 && (
                     <div className="mt-5">
                         <h2 className="font-medium text-lg">Head Movement Path:</h2>
