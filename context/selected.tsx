@@ -11,7 +11,7 @@ const SelectedContext = createContext<SelectedContextType | undefined>(undefined
 
 export const SelectedProvider = ({ children }: { children: ReactNode }) => {
     const [selected, setSelected] = useState<string>('OS');
-    const [loading, setLoading] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const storedSelected = localStorage.getItem("selected");

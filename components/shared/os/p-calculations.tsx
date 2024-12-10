@@ -32,10 +32,11 @@ const PreemptiveCalculations: React.FC<PreemptiveCalculationsProps> = ({ process
         const completionTime = Math.max(...segments.map(segment => segment.end));
         return completionTime - arrivalTime;
     });
-
-    const averageWaitingTime = waitingTimes.reduce((sum, time) => sum + time, 0) / processes.length;
-    const averageTurnaroundTime = turnaroundTimes.reduce((sum, time) => sum + time, 0) / processes.length;
+    
     const uniqueProcesses = [...new Set(processes.map(p => p.id))];
+
+    const averageWaitingTime = waitingTimes.reduce((sum, time) => sum + time, 0) / uniqueProcesses.length;
+    const averageTurnaroundTime = turnaroundTimes.reduce((sum, time) => sum + time, 0) / uniqueProcesses.length;
 
     return (
         <div className="mt-8 w-full mx-auto mb-20">

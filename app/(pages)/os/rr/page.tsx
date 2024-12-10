@@ -26,30 +26,44 @@ const RoundRobin = () => {
             return;
         }
 
-        const remainingProcesses = JSON.parse(JSON.stringify(processes)).sort((a: Process, b: Process) => a.arrivalTime - b.arrivalTime);
+        // Deep copy of processes to avoid mutation
+        const remainingProcesses: Process[] = JSON.parse(JSON.stringify(processes)).sort(
+            (a: Process, b: Process) => a.arrivalTime - b.arrivalTime
+        );
 
-        while (remainingProcesses.length > 0) {
-            const availableProcesses = remainingProcesses.filter((process: Process) => process.arrivalTime <= currentTime);
+        // Ready queue for Round Robin scheduling
+        const readyQueue: Process[] = [];
 
-            if (availableProcesses.length > 0) {
-                const nextProcess = availableProcesses[0];
-                const start = Math.max(currentTime, nextProcess.arrivalTime);
-                const cpuBurst = nextProcess.cpuBurst > quantum ? quantum : nextProcess.cpuBurst;
+        while (remainingProcesses.length > 0 || readyQueue.length > 0) {
+            // Move all processes that have arrived by currentTime into the ready queue
+            while (remainingProcesses.length > 0 && remainingProcesses[0].arrivalTime <= currentTime) {
+                readyQueue.push(remainingProcesses.shift() as Process);
+            }
+
+            if (readyQueue.length > 0) {
+                // Dequeue the next process from the ready queue
+                const currentProcess = readyQueue.shift() as Process;
+
+                const start = Math.max(currentTime, currentProcess.arrivalTime);
+                const cpuBurst = currentProcess.cpuBurst > quantum ? quantum : currentProcess.cpuBurst;
                 const end = start + cpuBurst;
 
-                result.push({ ...nextProcess, start, end });
+                result.push({ ...currentProcess, start, end });
 
                 currentTime = end;
-                nextProcess.cpuBurst -= cpuBurst;
+                currentProcess.cpuBurst -= cpuBurst;
 
-                if (nextProcess.cpuBurst === 0) {
-                    const index = remainingProcesses.indexOf(nextProcess);
-                    remainingProcesses.splice(index, 1);
-                } else {
-                    remainingProcesses.splice(remainingProcesses.indexOf(nextProcess), 1);
-                    remainingProcesses.push(nextProcess);
+                // Move newly arrived processes to the ready queue before re-enqueuing the current process
+                while (remainingProcesses.length > 0 && remainingProcesses[0].arrivalTime <= currentTime) {
+                    readyQueue.push(remainingProcesses.shift() as Process);
+                }
+
+                // If the current process still has burst time, re-enqueue it at the end of the ready queue
+                if (currentProcess.cpuBurst > 0) {
+                    readyQueue.push(currentProcess);
                 }
             } else {
+                // If no processes are ready, move the time to the next process arrival
                 currentTime = remainingProcesses[0].arrivalTime;
             }
         }
@@ -66,8 +80,8 @@ const RoundRobin = () => {
                         Quantum Time
                     </Label>
                     <Input
-                        id="quantum" 
-                        type="number" 
+                        id="quantum"
+                        type="number"
                         placeholder='3'
                         onChange={(e) => setQuantum(parseInt(e.target.value))}
                         className="w-24 bg-white"

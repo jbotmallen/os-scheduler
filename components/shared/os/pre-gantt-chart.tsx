@@ -9,6 +9,7 @@ interface GanttChartProps {
 }
 
 const PreemptiveGanttChart: React.FC<GanttChartProps> = ({ algorithm, schedule, totalDuration }) => {
+    console.log(schedule);
     return (
         <div className="mt-8 w-full mx-auto">
             <h2 className="text-xl font-semibold -mb-5">Gantt Chart (Preemptive Scheduling)</h2>
