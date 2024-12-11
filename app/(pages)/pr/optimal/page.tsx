@@ -6,20 +6,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Loading from "@/components/ui/loading";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { usePR } from "@/context/pr";
 import { CableIcon, CalculatorIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 const Optimal: React.FC = () => {
-  const [referenceString, setReferenceString] = useState<string>("");
-  const [initialReferenceString, setInitialReferenceString] =
-    useState<string>("");
-  const [frameSize, setFrameSize] = useState<number>(3);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [result, setResult] = useState<{
-    hits: number;
-    faults: number;
-    sequence: { frameState: (string | null)[]; isFault: boolean }[];
-  } | null>(null);
+  const {
+    referenceString,
+    setReferenceString,
+    initialReferenceString,
+    setInitialReferenceString,
+    frameSize,
+    setFrameSize,
+    result,
+    setResult,
+    loading,
+    setLoading,
+  } = usePR();
 
   const handleCalculate = () => {
     setLoading(true);
@@ -78,7 +81,7 @@ const Optimal: React.FC = () => {
           </div>
         </div>
         <Button
-          size='lg'
+          size="lg"
           className="mt-5 p-7 text-lg text-white rounded-lg"
           onClick={handleCalculate}
         >

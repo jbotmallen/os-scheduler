@@ -6,23 +6,23 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Loading from "@/components/ui/loading";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { usePR } from "@/context/pr";
 import { AlarmClockIcon, CalculatorIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
+
 const LRU: React.FC = () => {
-  const [referenceString, setReferenceString] = useState<string>("");
-  const [initialReferenceString, setInitialReferenceString] =
-    useState<string>("");
-  const [frameSize, setFrameSize] = useState<number>(3);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [result, setResult] = useState<{
-    hits: number;
-    faults: number;
-    sequence: {
-      frameState: (string | null)[];
-      recentUsage: string[];
-      isFault: boolean;
-    }[];
-  } | null>(null);
+  const {
+    referenceString,
+    setReferenceString,
+    initialReferenceString,
+    setInitialReferenceString,
+    frameSize,
+    setFrameSize,
+    result,
+    setResult,
+    loading,
+    setLoading,
+  } = usePR();
 
   const handleCalculate = () => {
     setLoading(true);
@@ -78,7 +78,7 @@ const LRU: React.FC = () => {
           </div>
         </div>
         <Button
-          size='lg'
+          size="lg"
           className="mt-5 p-7 text-lg text-white rounded-lg"
           onClick={handleCalculate}
         >
@@ -127,14 +127,15 @@ const LRU: React.FC = () => {
                           return (
                             <TableCell
                               key={idx}
-                              className={`text-center h-20 w-16 border-2 border-black text-2xl ${isHit && isCurrentReferenceMatch
+                              className={`text-center h-20 w-16 border-2 border-black text-2xl ${
+                                isHit && isCurrentReferenceMatch
                                   ? "bg-green-300 text-black"
                                   : step.isFault &&
                                     step.frameState[frameIdx] ===
-                                    initialReferenceString.split(" ")[idx]
-                                    ? "bg-red-300 text-black"
-                                    : ""
-                                }`}
+                                      initialReferenceString.split(" ")[idx]
+                                  ? "bg-red-300 text-black"
+                                  : ""
+                              }`}
                             >
                               {step.frameState[frameIdx] || "-"}
                             </TableCell>
@@ -151,10 +152,11 @@ const LRU: React.FC = () => {
                       {result.sequence.map((step, idx) => (
                         <TableCell
                           key={idx}
-                          className={`text-center h-20 w-16 border-2 border-black text-xl font-bold ${step.isFault
+                          className={`text-center h-20 w-16 border-2 border-black text-xl font-bold ${
+                            step.isFault
                               ? "bg-red-300 text-black"
                               : "bg-green-300 text-black"
-                            }`}
+                          }`}
                         >
                           {step.isFault ? "F" : "H"}
                         </TableCell>
