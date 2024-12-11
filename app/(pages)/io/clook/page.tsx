@@ -16,19 +16,16 @@ const CLook = () => {
     const [seekSteps, setSeekSteps] = useState<string>("");
     const [totalMovement, setTotalMovement] = useState<number>(0);
 
-    const calculateSeekCount = () => {
+    const calculateClookCount = () => {
         if (!headPosition || operations.length === 0) return;
 
         const sortedOps = [...operations].sort((a, b) => a - b);
 
-        const left = sortedOps.filter((op) => op < headPosition);
-        const right = sortedOps.filter((op) => op >= headPosition);
+        const left = sortedOps.filter((op) => op < headPosition); // Requests left of the head
+        const right = sortedOps.filter((op) => op >= headPosition); // Requests right of the head
 
-        const fullPath = [
-            headPosition,
-            ...right,
-            ...left.reverse(),
-        ];
+        // C-LOOK path: Move right, then jump to the lowest left and continue
+        const fullPath = [headPosition, ...right, ...left];
         setPath(fullPath);
 
         let movement = 0;
@@ -45,8 +42,8 @@ const CLook = () => {
 
     return (
         <div className="mt-10 px-5">
-            <Header title="C Look Algorithm" icon={BinocularsIcon} />
-            <section className="space-y-6">
+            <section className="space-y-8">
+                <Header title="C Look Algorithm" icon={BinocularsIcon} />
                 <div className="flex items-center gap-x-1.5">
                     <h1 className="font-medium text-xl mt-5">Enter the sequence of operations</h1>
                 </div>
@@ -92,7 +89,7 @@ const CLook = () => {
                     className="mt-5 text-xl py-7"
                     variant='default'
                     size='lg'
-                    onClick={calculateSeekCount}
+                    onClick={calculateClookCount}
                 >
                     <CalculatorIcon className="w-7 h-7 flex-shrink-0" />
                     Calculate
@@ -101,7 +98,7 @@ const CLook = () => {
                     <div className="mt-5">
                         <h2 className="font-medium text-lg">Head Movement Path:</h2>
                         <PathVisualizer path={path} />
-                        <h2 className="font-medium text-lg mt-5">Seek Count Calculation:</h2>
+                        <h2 className="text-lg mt-5 font-bold">Seek Count Calculation:</h2>
                         <SeekCalculation steps={seekSteps} total={totalMovement} />
                     </div>
                 )}

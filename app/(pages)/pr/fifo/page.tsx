@@ -1,10 +1,12 @@
 "use client";
 
 import { normalizeString, processFrames } from "@/components/shared/pr/utils";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Loading from "@/components/ui/loading";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { CalculatorIcon, UsersIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 const FIFO: React.FC = () => {
@@ -41,9 +43,10 @@ const FIFO: React.FC = () => {
   }, [frameSize]);
 
   return (
-    <div className="my-10">
-      <h1 className="text-2xl md:text-4xl font-bold my-8">
-        First in, First Out Algorithm
+    <div className="my-10 px-5">
+      <h1 className="text-2xl md:text-4xl font-bold my-8 flex items-center justify-center gap-x-1.5">
+        <UsersIcon className="w-8 h-8 flex-shrink-0" />
+        First In First Out
       </h1>
       <section className="flex flex-col gap-2 mb-4">
         <div className="flex gap-4">
@@ -69,12 +72,14 @@ const FIFO: React.FC = () => {
             />
           </div>
         </div>
-        <button
-          className="mt-5 px-4 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-lg"
+        <Button
+          size='lg'
+          className="mt-5 p-7 text-lg text-white rounded-lg"
           onClick={handleCalculate}
         >
+          <CalculatorIcon className="w-7 h-7 flex-shrink-0" />
           Calculate
-        </button>
+        </Button>
         {loading && <Loading />}
         {initialReferenceString.split(" ").filter(Boolean).length === 0 ? (
           <p className="text-2xl mt-5 text-center text-red-700 font-semibold">
@@ -117,15 +122,14 @@ const FIFO: React.FC = () => {
                           return (
                             <TableCell
                               key={idx}
-                              className={`text-center h-20 w-16 border-2 border-black text-2xl ${
-                                isHit && isCurrentReferenceMatch
+                              className={`text-center h-20 w-16 border-2 border-black text-2xl ${isHit && isCurrentReferenceMatch
                                   ? "bg-green-300 text-black"
                                   : step.isFault &&
                                     step.frameState[frameIdx] ===
-                                      initialReferenceString.split(" ")[idx]
-                                  ? "bg-red-300 text-black"
-                                  : ""
-                              }`}
+                                    initialReferenceString.split(" ")[idx]
+                                    ? "bg-red-300 text-black"
+                                    : ""
+                                }`}
                             >
                               {step.frameState[frameIdx] || "-"}
                             </TableCell>
@@ -142,11 +146,10 @@ const FIFO: React.FC = () => {
                       {result.sequence.map((step, idx) => (
                         <TableCell
                           key={idx}
-                          className={`text-center h-20 w-16 border-2 border-black text-xl font-bold ${
-                            step.isFault
+                          className={`text-center h-20 w-16 border-2 border-black text-xl font-bold ${step.isFault
                               ? "bg-red-300 text-black"
                               : "bg-green-300 text-black"
-                          }`}
+                            }`}
                         >
                           {step.isFault ? "F" : "H"}
                         </TableCell>

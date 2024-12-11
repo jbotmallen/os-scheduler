@@ -1,10 +1,12 @@
 "use client";
 
 import { normalizeString, processFrames } from "@/components/shared/pr/utils";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Loading from "@/components/ui/loading";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { CableIcon, CalculatorIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 
 const Optimal: React.FC = () => {
@@ -46,8 +48,9 @@ const Optimal: React.FC = () => {
   }, [frameSize]);
 
   return (
-    <div className="my-10">
-      <h1 className="text-2xl md:text-4xl font-bold my-8">
+    <div className="my-10 px-5">
+      <h1 className="text-2xl md:text-4xl font-bold my-8 flex items-center justify-center gap-x-1.5">
+        <CableIcon className="w-8 h-8 flex-shrink-0" />
         Optimal Page Replacement
       </h1>
       <section className="flex flex-col gap-2 mb-4">
@@ -74,12 +77,14 @@ const Optimal: React.FC = () => {
             />
           </div>
         </div>
-        <button
-          className="mt-5 px-4 py-4 bg-blue-600 hover:bg-blue-500 text-white rounded-lg"
+        <Button
+          size='lg'
+          className="mt-5 p-7 text-lg text-white rounded-lg"
           onClick={handleCalculate}
         >
+          <CalculatorIcon className="w-7 h-7 flex-shrink-0" />
           Calculate
-        </button>
+        </Button>
         {loading && <Loading />}
         {initialReferenceString.split(" ").filter(Boolean).length === 0 ? (
           <p className="text-2xl mt-5 text-center text-red-700 font-semibold">
@@ -90,7 +95,7 @@ const Optimal: React.FC = () => {
             {result && !loading && (
               <section className="space-y-4 mt-5">
                 <p className="text-2xl font-bold">Result</p>
-                <Table className="border-2 border-black text-black text-2xl">
+                <Table className="border-2 border-black text-black text-2xl bg-white">
                   <TableBody>
                     <TableRow>
                       {initialReferenceString
@@ -109,7 +114,7 @@ const Optimal: React.FC = () => {
                   </TableBody>
                 </Table>
 
-                <Table>
+                <Table className="bg-white">
                   <TableBody>
                     {Array.from({ length: frameSize }, (_, frameIdx) => (
                       <TableRow key={frameIdx}>

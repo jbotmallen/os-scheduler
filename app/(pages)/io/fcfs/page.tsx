@@ -95,7 +95,7 @@ const IOFCFS = () => {
                     <div className="mt-5">
                         <h2 className="font-medium text-lg">Head Movement Path:</h2>
                         <PathVisualizer path={path} />
-                        <h2 className="font-medium text-lg mt-5">Seek Count Calculation:</h2>
+                        <h2 className="font-bold text-lg mt-5">Seek Count Calculation:</h2>
                         <SeekCalculation steps={seekSteps} total={totalMovement} />
                     </div>
                 )}
